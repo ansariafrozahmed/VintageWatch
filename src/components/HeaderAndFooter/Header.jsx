@@ -32,7 +32,7 @@ const Header = () => {
         </div>
         <div className="flex items-center justify-center gap-2">
           <Link
-            href={"/auth/signin"}
+            href={"/signin"}
             className="flex gap-1.5 items-center hover:bg-gray-100 lg:px-5 p-3 rounded-full"
           >
             <UserRound size={25} strokeWidth={1} />
