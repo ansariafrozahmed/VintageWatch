@@ -1,8 +1,45 @@
+"use client";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const SignUp = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Step 4: Make a POST request to the backend
+    try {
+      const response = await fetch("http://localhost:4000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fullName, email, password }),
+      });
+
+      // Handle the response, e.g., show a success message or redirect
+      if (response.ok) {
+        console.log("Successfully signed up!");
+        // Add logic for success, e.g., redirect to a new page
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        router.push("/");
+      } else {
+        console.error("Failed to sign up");
+        // Add logic for failure, e.g., show an error message
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <section>
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-16">
@@ -19,13 +56,17 @@ const SignUp = () => {
             Already have an account?{" "}
             <Link
               href={"/signin"}
-              title=""
               className="font-medium text-black transition-all duration-200 hover:underline"
             >
               Sign In
             </Link>
           </p>
-          <form action="#" method="POST" className="mt-8">
+          <form
+            action="#"
+            method="POST"
+            className="mt-8"
+            onSubmit={handleSubmit}
+          >
             <div className="space-y-5">
               <div>
                 <label
@@ -39,6 +80,8 @@ const SignUp = () => {
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="text"
+                    onChange={(e) => setFullName(e.target.value)}
+                    value={fullName}
                     required
                     placeholder="Full Name"
                     id="name"
@@ -57,7 +100,9 @@ const SignUp = () => {
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="email"
+                    onChange={(e) => setEmail(e.target.value)}
                     required
+                    value={email}
                     placeholder="Email"
                     id="email"
                   ></input>
@@ -77,7 +122,9 @@ const SignUp = () => {
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="password"
+                    onChange={(e) => setPassword(e.target.value)}
                     required
+                    value={password}
                     placeholder="Password"
                     id="password"
                   ></input>
@@ -85,7 +132,7 @@ const SignUp = () => {
               </div>
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
                   Create Account <ArrowRight className="ml-2" size={16} />
