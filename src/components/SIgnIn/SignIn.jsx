@@ -1,12 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +53,7 @@ const SignIn = () => {
       <section>
         <Toaster position="top-center" reverseOrder={true} />
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-16">
-          <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
+          <div className="w-full md:max-w-md px-3">
             {/* <div className="mb-5 flex justify-center">
               <Link href={"/"}>
                 <h1 className="font-logoFont text-5xl">VintageWatch</h1>
@@ -64,7 +69,7 @@ const SignIn = () => {
                 title=""
                 className="font-semibold text-black transition-all duration-200 hover:underline"
               >
-                Create a free account
+                Sign Up
               </Link>
             </p>
             <form
@@ -111,15 +116,26 @@ const SignIn = () => {
                       Forgot password?{" "}
                     </Link>
                   </div>
-                  <div className="mt-2">
+                  <div className="mt-2 flex gap-1">
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       onChange={(e) => setPassword(e.target.value)}
                       // value={}
                       required
                       placeholder="Password"
                     ></input>
+                    <button
+                      type="button"
+                      onClick={handleTogglePassword}
+                      className="ml-2 text-gray-500 focus:outline-none"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-6 w-6" />
+                      ) : (
+                        <Eye className="h-6 w-6" />
+                      )}
+                    </button>
                   </div>
                 </div>
                 <div>
