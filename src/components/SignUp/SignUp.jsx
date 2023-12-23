@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
@@ -13,7 +14,6 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Step 4: Make a POST request to the backend
     try {
       const response = await fetch("http://localhost:4000/api/signup", {
         method: "POST",
@@ -23,17 +23,26 @@ const SignUp = () => {
         body: JSON.stringify({ fullName, email, password }),
       });
 
-      // Handle the response, e.g., show a success message or redirect
       if (response.ok) {
         console.log("Successfully signed up!");
-        // Add logic for success, e.g., redirect to a new page
         setFullName("");
         setEmail("");
         setPassword("");
-        router.push("/");
+        toast.success("Registered Successfully!");
+        setTimeout(() => {
+          toast("Redirecting To Login Page", {
+            icon: "👏",
+          });
+        }, 1000);
+        setTimeout(() => {
+          router.push("/signin");
+        }, 2000);
+      } else if (response.status === 500) {
+        // Extract and display the error message
+        const errorMessage = await response.text();
+        toast.error("Email Already Exist!");
       } else {
-        console.error("Failed to sign up");
-        // Add logic for failure, e.g., show an error message
+        toast.error("Registration Failed! Try Again");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -42,6 +51,7 @@ const SignUp = () => {
 
   return (
     <section>
+      <Toaster position="top-center" reverseOrder={true} />
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-16">
         <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
           {/* <div className="mb-5 flex justify-center">
@@ -140,7 +150,7 @@ const SignUp = () => {
               </div>
             </div>
           </form>
-          <div className="mt-3 space-y-3">
+          {/* <div className="mt-3 space-y-3">
             <button
               type="button"
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
@@ -173,7 +183,7 @@ const SignUp = () => {
               </span>
               Sign up with Facebook
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

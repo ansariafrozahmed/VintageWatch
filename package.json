@@ -17,6 +17,7 @@
     "node": "^21.2.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
     "swiper": "^11.0.5"
   },
   "devDependencies": {

@@ -1,11 +1,52 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:4000/api/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        console.log("Login successful:", userData);
+        toast.success("Successfully Logged In!");
+        // Handle successful login, e.g., redirect or store user data
+      } else if (response.status === 401) {
+        // console.log("Invalid credentials");
+        toast.error("Invalid Password");
+        // Handle case when credentials are invalid
+      } else if (response.status === 404) {
+        // console.log("User not found");
+        toast.error("User not found");
+        // Handle case when the user is not found
+      } else {
+        // console.log("Login failed");
+        toast.error("Login Faild");
+        // Handle other errors
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div>
       <section>
+        <Toaster position="top-center" reverseOrder={true} />
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-16">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             {/* <div className="mb-5 flex justify-center">
@@ -26,7 +67,12 @@ const SignIn = () => {
                 Create a free account
               </Link>
             </p>
-            <form action="#" method="POST" className="mt-8">
+            <form
+              action="#"
+              onSubmit={handleSubmit}
+              method="POST"
+              className="mt-8"
+            >
               <div className="space-y-5">
                 <div>
                   <label
@@ -40,6 +86,8 @@ const SignIn = () => {
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      // value={email}
                       required
                       placeholder="Email"
                     ></input>
@@ -67,6 +115,8 @@ const SignIn = () => {
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      // value={}
                       required
                       placeholder="Password"
                     ></input>
@@ -74,15 +124,15 @@ const SignIn = () => {
                 </div>
                 <div>
                   <button
-                    type="button"
+                    type="submit"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
-                    Get started <ArrowRight className="ml-2" size={16} />
+                    Log In <ArrowRight className="ml-2" size={16} />
                   </button>
                 </div>
               </div>
             </form>
-            <div className="mt-3 space-y-3">
+            {/* <div className="mt-3 space-y-3">
               <button
                 type="button"
                 className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
@@ -115,7 +165,7 @@ const SignIn = () => {
                 </span>
                 Sign in with Facebook
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
