@@ -7,15 +7,27 @@ import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
 import "swiper/css/pagination";
 import ProductCard from "../ProductCard/ProductCard";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const NewArrivals = () => {
   const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   return (
     <div className="py-10 lg:py-20 ">
-      <div className="inline-block mx-5 lg:mx-20 leading-none font-SecondaryFont">
-        <h3 className="md:text-xl">Check out !</h3>
-        <h2 className="text-4xl md:text-5xl">New Arrivals</h2>
-        {/* <h2 className="text-right md:text-xl">for this month...</h2> */}
+      <div className="flex items-center justify-between mx-5 lg:mx-20 leading-none font-SecondaryFont">
+        <div>
+          <h3 className="md:text-xl">Check out !</h3>
+          <h2 className="text-3xl md:text-5xl">New Arrivals</h2>
+        </div>
+        <div className="group">
+          <Link className="flex items-center gap-1" href={"collections"}>
+            <h2 className=" md:text-xl">View All</h2>
+            <ChevronRight
+              strokeWidth={1}
+              className="transition-all ease-in-out group-hover:scale-150"
+            />
+          </Link>
+        </div>
       </div>
       <div>
         <Swiper

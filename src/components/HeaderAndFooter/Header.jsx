@@ -10,7 +10,7 @@ const Header = () => {
   };
 
   return (
-    <div className="h-[11svh] px-5 xl:px-20 flex items-center w-full">
+    <div className="h-[11svh] shadow px-5 xl:px-20 flex items-center w-full">
       <div className="w-full flex items-center justify-between">
         <div>
           <Link href={"/"}>
@@ -21,7 +21,7 @@ const Header = () => {
         </div>
         <div className="hidden lg:block">
           <ul className="flex gap-5 xl:gap-10 items-center justify-center">
-            <Link href={"/new-arrivals"}>
+            <Link href={"/collections"}>
               <li>Buy a watch</li>
             </Link>
             <Link href={"/become-a-seller"}>

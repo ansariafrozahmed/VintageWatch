@@ -9,8 +9,8 @@ const page = () => {
   return (
     <div>
       <HeroSlider />
-      <NewArrivals />
       <Summary />
+      <NewArrivals />
       <MostPopular />
       <HomeProductSection />
     </div>

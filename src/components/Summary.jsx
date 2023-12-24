@@ -4,9 +4,9 @@ import React from "react";
 
 const Summary = () => {
   return (
-    <div className="px-5 py-10 md:px-20 md:py-10 space-y-5">
+    <div className="px-5 py-10 md:px-20 md:py-20 space-y-5">
       <div>
-        <h2 className="text-[1.7rem] md:text-6xl font-SecondaryFont">
+        <h2 className="text-[1.7rem] md:text-7xl font-SecondaryFont">
           Vintage Watch is home to an exceptional collection of certified
           pre-owned luxury watches and accessories.
         </h2>
