@@ -21,13 +21,21 @@ const Header = () => {
         </div>
         <div className="hidden lg:block">
           <ul className="flex gap-5 xl:gap-10 items-center justify-center">
-            <li>Buy a watch</li>
-            <li>Sell a watch</li>
+            <Link href={"/new-arrivals"}>
+              <li>Buy a watch</li>
+            </Link>
+            <Link href={"/become-a-seller"}>
+              <li>Sell a watch</li>
+            </Link>
             <Link href={"/about-us"}>
               <li>About us</li>
             </Link>
-            <li>Contact us</li>
-            <li>FAQs</li>
+            <Link href={"/contact-us"}>
+              <li>Contact us</li>
+            </Link>
+            <Link href={"/faqs"}>
+              <li>FAQs</li>
+            </Link>
           </ul>
         </div>
         <div className="flex items-center justify-center gap-2">
