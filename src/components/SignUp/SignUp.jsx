@@ -1,5 +1,6 @@
 "use client";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -7,10 +8,15 @@ import toast, { Toaster } from "react-hot-toast";
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
+  const { data: session } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+
+  if (session) {
+    router.push("/profile");
+  }
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -40,7 +46,7 @@ const SignUp = () => {
           });
         }, 1000);
         setTimeout(() => {
-          router.push("/signin");
+          router.push("/auth/signin");
         }, 2000);
       } else if (response.status === 500) {
         // Extract and display the error message
@@ -70,7 +76,7 @@ const SignUp = () => {
           <p className="mt-2 text-sm text-gray-600">
             Already have an account?{" "}
             <Link
-              href={"/signin"}
+              href={"/auth/signin"}
               className="font-medium text-black transition-all duration-200 hover:underline"
             >
               Sign In

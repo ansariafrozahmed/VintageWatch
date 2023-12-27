@@ -1,9 +1,12 @@
 import SignIn from "@/components/SIgnIn/SignIn";
+import React from "react";
 
-export default function Page() {
+const Page = () => {
   return (
     <div>
       <SignIn />
     </div>
   );
-}
+};
+
+export default Page;

@@ -2,9 +2,14 @@
 import React, { useState } from "react";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import toast, { Toaster } from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const SignIn = () => {
+const SignInComp = () => {
+  const router = useRouter();
+  const { data: session } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -17,36 +22,26 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:4000/api/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
       });
 
-      if (response.ok) {
-        const userData = await response.json();
-        console.log("Login successful:", userData);
-        toast.success("Successfully Logged In!");
-        // Handle successful login, e.g., redirect or store user data
-      } else if (response.status === 401) {
-        // console.log("Invalid credentials");
-        toast.error("Invalid Password");
-        // Handle case when credentials are invalid
-      } else if (response.status === 404) {
-        // console.log("User not found");
-        toast.error("User not found");
-        // Handle case when the user is not found
-      } else {
-        // console.log("Login failed");
-        toast.error("Login Faild");
-        // Handle other errors
+      if (!result.error) {
+        // Redirect to the desired page on successful login
+        router.push("/about-us");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error during sign-in:", error);
+      // Handle the error as needed, e.g., display an error message to the user
     }
   };
+
+  if (session) {
+    router.push("/profile"); // Change "/dashboard" to your desired authenticated route
+    return null; // Return null to prevent rendering the sign-in form
+  }
 
   return (
     <div>
@@ -65,19 +60,14 @@ const SignIn = () => {
             <p className="mt-2 text-sm text-gray-600 ">
               Don&apos;t have an account?{" "}
               <Link
-                href={"/signup"}
+                href={"/auth/signup"}
                 title=""
                 className="font-semibold text-black transition-all duration-200 hover:underline"
               >
                 Sign Up
               </Link>
             </p>
-            <form
-              action="#"
-              onSubmit={handleSubmit}
-              method="POST"
-              className="mt-8"
-            >
+            <form onSubmit={handleSubmit} className="mt-8">
               <div className="space-y-5">
                 <div>
                   <label
@@ -189,4 +179,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInComp;

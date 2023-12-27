@@ -4,6 +4,7 @@ import Header from "@/components/HeaderAndFooter/Header";
 import Footer from "@/components/HeaderAndFooter/Footer";
 import AnnouncementBar from "@/components/HeaderAndFooter/AnnouncementBar";
 import NextTopLoader from "nextjs-toploader";
+import AuthProvider from "@/components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,15 +13,17 @@ export const metadata = {
   description: "One Stop Solution",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, session }) {
   return (
     <html lang="en">
       <body className={inter.className}>
         <div>
           <NextTopLoader showSpinner={false} />
           <AnnouncementBar />
-          <Header />
-          {children}
+          <AuthProvider session={session}>
+            <Header />
+            {children}
+          </AuthProvider>
           <Footer />
         </div>
       </body>

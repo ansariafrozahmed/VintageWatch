@@ -1,10 +1,17 @@
 "use client";
 import { Menu, UserRound, X } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Header = () => {
-  const [toggleNav, setToggleNav] = React.useState(true);
+  const { data: session } = useSession();
+  const [toggleNav, setToggleNav] = useState(true);
+
+  useEffect(() => {
+    console.log(session, "DDDDDDDDDDDDDDDDD");
+  }, [session]);
+
   const handleMenu = () => {
     setToggleNav(!toggleNav);
   };
@@ -39,13 +46,23 @@ const Header = () => {
           </ul>
         </div>
         <div className="flex items-center justify-center gap-2">
-          <Link
-            href={"/signin"}
-            className="flex gap-1.5 items-center hover:bg-gray-100 lg:px-5 p-3 rounded-full"
-          >
-            <UserRound size={25} strokeWidth={1} />
-            <h2 className="hidden lg:block text-sm">Log in or register</h2>
-          </Link>
+          {session ? (
+            <Link
+              href={"/profile"}
+              className="flex gap-1.5 items-center hover:bg-gray-100 lg:px-5 p-3 rounded-full"
+            >
+              <UserRound size={25} strokeWidth={1} />
+              <h2 className="hidden lg:block text-sm">Profile</h2>
+            </Link>
+          ) : (
+            <Link
+              href={"/auth/signin"}
+              className="flex gap-1.5 items-center hover:bg-gray-100 lg:px-5 p-3 rounded-full"
+            >
+              <UserRound size={25} strokeWidth={1} />
+              <h2 className="hidden lg:block text-sm">Log in or register</h2>
+            </Link>
+          )}
           <div className="lg:hidden">
             {toggleNav ? (
               <Menu size={30} onClick={handleMenu} className="cursor-pointer" />
