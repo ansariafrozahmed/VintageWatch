@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -36,7 +35,14 @@ export const authOptions = {
 
         const data = await response.json();
 
-        return data;
+        const user = {
+          id: data.id, // Replace with the actual user ID
+          name: data.name, // Replace with the actual user name
+          email: data.email, // Replace with the actual user email
+        };
+        return user;
+
+        // return data;
       },
     }),
   ],

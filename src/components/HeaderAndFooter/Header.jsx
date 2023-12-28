@@ -1,19 +1,28 @@
 "use client";
 import { Menu, UserRound, X } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const Header = () => {
+  // const { data, status } = useSession();
   const { data: session } = useSession();
-  const [toggleNav, setToggleNav] = useState(true);
+  const [toggleNav, setToggleNav] = React.useState(true);
 
-  useEffect(() => {
-    console.log(session, "DDDDDDDDDDDDDDDDD");
-  }, [session]);
-
+  console.log(session, "DDDDDDDDDDDDDDDDD");
   const handleMenu = () => {
     setToggleNav(!toggleNav);
+  };
+
+  const handleSignOut = async () => {
+    const result = await signOut({ redirect: false });
+
+    if (result.error) {
+      console.error("Sign-out failed:", result.error);
+    } else {
+      console.log("Sign-out successful");
+      // You can perform additional actions after successful sign-out if needed
+    }
   };
 
   return (
@@ -45,6 +54,7 @@ const Header = () => {
             </Link>
           </ul>
         </div>
+        <button onClick={handleSignOut}>SignOut</button>
         <div className="flex items-center justify-center gap-2">
           {session ? (
             <Link

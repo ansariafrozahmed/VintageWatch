@@ -28,9 +28,11 @@ const SignInComp = () => {
         redirect: false,
       });
 
-      if (!result.error) {
+      if (result.ok) {
         // Redirect to the desired page on successful login
-        router.push("/about-us");
+        // toast.success("Successfully toasted!");
+        // console.log(result, "RESULT");
+        router.push("/profile");
       }
     } catch (error) {
       console.error("Error during sign-in:", error);
@@ -39,7 +41,7 @@ const SignInComp = () => {
   };
 
   if (session) {
-    router.push("/profile"); // Change "/dashboard" to your desired authenticated route
+    // router.push("/profile"); // Change "/dashboard" to your desired authenticated route
     return null; // Return null to prevent rendering the sign-in form
   }
 
