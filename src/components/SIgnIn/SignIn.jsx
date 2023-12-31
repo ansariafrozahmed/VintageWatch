@@ -2,14 +2,11 @@
 import React, { useState } from "react";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import toast, { Toaster } from "react-hot-toast";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const SignInComp = () => {
   const router = useRouter();
-  const { data: session } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,28 +19,30 @@ const SignInComp = () => {
     e.preventDefault();
 
     try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
+      const response = await fetch("http://localhost:4000/api/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
       });
 
-      if (result.ok) {
-        // Redirect to the desired page on successful login
-        // toast.success("Successfully toasted!");
-        // console.log(result, "RESULT");
-        router.push("/profile");
+      if (response.ok) {
+        const userData = await response.json(); // Parse the JSON response
+        console.log("User Data:", userData);
+
+        // Redirect or handle successful login
+        toast.success("Successfully Logged In");
+        // router.push("/profile"); // Replace with your desired route
+      } else {
+        // Handle login failure
+        toast.error("Login failed. Please check your credentials.");
       }
     } catch (error) {
-      console.error("Error during sign-in:", error);
-      // Handle the error as needed, e.g., display an error message to the user
+      console.error("Error during login:", error);
+      toast.error("An unexpected error occurred.");
     }
   };
-
-  if (session) {
-    // router.push("/profile"); // Change "/dashboard" to your desired authenticated route
-    return null; // Return null to prevent rendering the sign-in form
-  }
 
   return (
     <div>

@@ -4,7 +4,6 @@ import Header from "@/components/HeaderAndFooter/Header";
 import Footer from "@/components/HeaderAndFooter/Footer";
 import AnnouncementBar from "@/components/HeaderAndFooter/AnnouncementBar";
 import NextTopLoader from "nextjs-toploader";
-import AuthProvider from "@/components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +19,8 @@ export default function RootLayout({ children, session }) {
         <div>
           <NextTopLoader showSpinner={false} />
           <AnnouncementBar />
-          <AuthProvider session={session}>
-            <Header />
-            {children}
-          </AuthProvider>
+          <Header />
+          {children}
           <Footer />
         </div>
       </body>

@@ -1,6 +1,5 @@
 "use client";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -8,15 +7,10 @@ import toast, { Toaster } from "react-hot-toast";
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
-  const { data: session } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-
-  if (session) {
-    router.push("/profile");
-  }
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);

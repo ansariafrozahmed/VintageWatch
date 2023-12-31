@@ -1,28 +1,12 @@
 "use client";
 import { Menu, UserRound, X } from "lucide-react";
-import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 
 const Header = () => {
-  // const { data, status } = useSession();
-  const { data: session } = useSession();
   const [toggleNav, setToggleNav] = React.useState(true);
-
-  console.log(session, "DDDDDDDDDDDDDDDDD");
   const handleMenu = () => {
     setToggleNav(!toggleNav);
-  };
-
-  const handleSignOut = async () => {
-    const result = await signOut({ redirect: false });
-
-    if (result.error) {
-      console.error("Sign-out failed:", result.error);
-    } else {
-      console.log("Sign-out successful");
-      // You can perform additional actions after successful sign-out if needed
-    }
   };
 
   return (
@@ -54,25 +38,14 @@ const Header = () => {
             </Link>
           </ul>
         </div>
-        <button onClick={handleSignOut}>SignOut</button>
         <div className="flex items-center justify-center gap-2">
-          {session ? (
-            <Link
-              href={"/profile"}
-              className="flex gap-1.5 items-center hover:bg-gray-100 lg:px-5 p-3 rounded-full"
-            >
-              <UserRound size={25} strokeWidth={1} />
-              <h2 className="hidden lg:block text-sm">Profile</h2>
-            </Link>
-          ) : (
-            <Link
-              href={"/auth/signin"}
-              className="flex gap-1.5 items-center hover:bg-gray-100 lg:px-5 p-3 rounded-full"
-            >
-              <UserRound size={25} strokeWidth={1} />
-              <h2 className="hidden lg:block text-sm">Log in or register</h2>
-            </Link>
-          )}
+          <Link
+            href={"/auth/signin"}
+            className="flex gap-1.5 items-center hover:bg-gray-100 lg:px-5 p-3 rounded-full"
+          >
+            <UserRound size={25} strokeWidth={1} />
+            <h2 className="hidden lg:block text-sm">Log in or register</h2>
+          </Link>
           <div className="lg:hidden">
             {toggleNav ? (
               <Menu size={30} onClick={handleMenu} className="cursor-pointer" />
