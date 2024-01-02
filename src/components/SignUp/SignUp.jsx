@@ -2,7 +2,7 @@
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const SignUp = () => {
@@ -35,13 +35,8 @@ const SignUp = () => {
         setPassword("");
         toast.success("Registered Successfully!");
         setTimeout(() => {
-          toast("Redirecting To Login Page", {
-            icon: "👏",
-          });
-        }, 1000);
-        setTimeout(() => {
           router.push("/auth/signin");
-        }, 2000);
+        }, 1000);
       } else if (response.status === 500) {
         // Extract and display the error message
         const errorMessage = await response.text();

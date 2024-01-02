@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
@@ -17,7 +17,6 @@ const SignInComp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch("http://localhost:4000/api/signin", {
         method: "POST",
@@ -28,12 +27,20 @@ const SignInComp = () => {
       });
 
       if (response.ok) {
-        const userData = await response.json(); // Parse the JSON response
-        console.log("User Data:", userData);
-
-        // Redirect or handle successful login
+        const { userData } = await response.json();
+        var userDataString = JSON.stringify(userData);
+        localStorage.setItem("vwuser", userDataString);
         toast.success("Successfully Logged In");
+        setTimeout(() => {
+          router.push("/");
+        }, 1000);
+        // Log the user data
+        console.log("User:", userData);
+
         // router.push("/profile"); // Replace with your desired route
+      } else if (response.status === 401) {
+        console.log("Wrong Password");
+        toast.error("Invalid Password");
       } else {
         // Handle login failure
         toast.error("Login failed. Please check your credentials.");
