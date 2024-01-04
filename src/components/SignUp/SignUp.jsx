@@ -10,11 +10,34 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [user, setUser] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
+  console.log("SignIn Page");
+  useEffect(() => {
+    // Check if window is defined (i.e., if the code is running on the client side)
+    if (typeof window !== "undefined") {
+      // Retrieve the item from localStorage
+      const storedDataString = localStorage.getItem("vwuser");
+
+      // Convert the JSON string to a JavaScript object
+      const storedData = JSON.parse(storedDataString);
+
+      // Now you can use the 'storedData' in your component
+      //   console.log(storedData);
+      setUser(storedData);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +61,6 @@ const SignUp = () => {
           router.push("/auth/signin");
         }, 1000);
       } else if (response.status === 500) {
-        // Extract and display the error message
         const errorMessage = await response.text();
         toast.error("Email Already Exist!");
       } else {
@@ -54,11 +76,11 @@ const SignUp = () => {
       <Toaster position="top-center" reverseOrder={true} />
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-16">
         <div className="w-full md:max-w-md px-3">
-          {/* <div className="mb-5 flex justify-center">
-              <Link href={"/"}>
-                <h1 className="font-logoFont text-5xl">VintageWatch</h1>
-              </Link>
-            </div> */}
+          <div className="mb-10 flex justify-center">
+            <Link href={"/"}>
+              <h1 className="font-logoFont text-5xl">VintageWatch</h1>
+            </Link>
+          </div>
           <h2 className=" text-4xl font-semibold leading-tight text-black">
             Sign Up
           </h2>
@@ -158,6 +180,11 @@ const SignUp = () => {
                 >
                   Create Account <ArrowRight className="ml-2" size={16} />
                 </button>
+              </div>
+              <div className="text-center leading-none">
+                <Link href={"/"} className="text-sm underline font-medium">
+                  Go to home
+                </Link>
               </div>
             </div>
           </form>

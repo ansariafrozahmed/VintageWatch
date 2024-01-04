@@ -1,9 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/HeaderAndFooter/Header";
 import Footer from "@/components/HeaderAndFooter/Footer";
 import AnnouncementBar from "@/components/HeaderAndFooter/AnnouncementBar";
 import NextTopLoader from "nextjs-toploader";
+import HeaderWrapper from "@/components/HeaderAndFooter/HeaderWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,7 @@ export default function RootLayout({ children, session }) {
         <div>
           <NextTopLoader showSpinner={false} />
           <AnnouncementBar />
-          <Header />
+          <HeaderWrapper />
           {children}
           <Footer />
         </div>

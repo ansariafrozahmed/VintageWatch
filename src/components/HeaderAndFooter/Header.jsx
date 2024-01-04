@@ -11,6 +11,7 @@ const Header = () => {
   const [user, setUser] = useState(null);
   const [toggleNav, setToggleNav] = useState(true);
 
+  // console.log("HEADER");
   useEffect(() => {
     // Check if window is defined (i.e., if the code is running on the client side)
     if (typeof window !== "undefined") {
@@ -24,7 +25,7 @@ const Header = () => {
       //   console.log(storedData);
       setUser(storedData);
     }
-  }, [user]);
+  }, []);
 
   const handleMenu = () => {
     setToggleNav(!toggleNav);

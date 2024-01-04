@@ -8,12 +8,35 @@ import { useRouter } from "next/navigation";
 const SignInComp = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [user, setUser] = useState();
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
+  console.log("SignIn Page");
+  useEffect(() => {
+    // Check if window is defined (i.e., if the code is running on the client side)
+    if (typeof window !== "undefined") {
+      // Retrieve the item from localStorage
+      const storedDataString = localStorage.getItem("vwuser");
+
+      // Convert the JSON string to a JavaScript object
+      const storedData = JSON.parse(storedDataString);
+
+      // Now you can use the 'storedData' in your component
+      //   console.log(storedData);
+      setUser(storedData);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,21 +51,27 @@ const SignInComp = () => {
 
       if (response.ok) {
         const { userData } = await response.json();
-        var userDataString = JSON.stringify(userData);
-        localStorage.setItem("vwuser", userDataString);
-        toast.success("Successfully Logged In");
-        setTimeout(() => {
-          router.push("/");
-        }, 1000);
-        // Log the user data
-        console.log("User:", userData);
 
-        // router.push("/profile"); // Replace with your desired route
+        if (userData) {
+          var userDataString = JSON.stringify(userData);
+          localStorage.setItem("vwuser", userDataString);
+          setEmail("");
+          setPassword("");
+          toast.success("Successfully Logged In");
+          console.log("User:", userData);
+          setTimeout(() => {
+            router.push("/");
+          }, 1000);
+        }
       } else if (response.status === 401) {
         console.log("Wrong Password");
         toast.error("Invalid Password");
+        setEmail("");
+        setPassword("");
       } else {
         // Handle login failure
+        setEmail("");
+        setPassword("");
         toast.error("Login failed. Please check your credentials.");
       }
     } catch (error) {
@@ -57,11 +86,11 @@ const SignInComp = () => {
         <Toaster position="top-center" reverseOrder={true} />
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-16">
           <div className="w-full md:max-w-md px-3">
-            {/* <div className="mb-5 flex justify-center">
+            <div className="mb-10 flex justify-center">
               <Link href={"/"}>
                 <h1 className="font-logoFont text-5xl">VintageWatch</h1>
               </Link>
-            </div> */}
+            </div>
             <h2 className=" text-4xl font-semibold leading-tight text-black">
               Sign In
             </h2>
@@ -89,6 +118,7 @@ const SignInComp = () => {
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="email"
+                      value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       // value={email}
                       required
@@ -119,7 +149,7 @@ const SignInComp = () => {
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type={showPassword ? "text" : "password"}
                       onChange={(e) => setPassword(e.target.value)}
-                      // value={}
+                      value={password}
                       required
                       placeholder="Password"
                     ></input>
@@ -143,6 +173,11 @@ const SignInComp = () => {
                   >
                     Log In <ArrowRight className="ml-2" size={16} />
                   </button>
+                </div>
+                <div className="text-center leading-none">
+                  <Link href={"/"} className="text-sm underline font-medium">
+                    Go to home
+                  </Link>
                 </div>
               </div>
             </form>
