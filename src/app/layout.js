@@ -18,7 +18,7 @@ export default function RootLayout({ children, session }) {
       <body className={inter.className}>
         <div>
           <NextTopLoader showSpinner={false} />
-          <AnnouncementBar />
+          {/* <AnnouncementBar /> */}
           <HeaderWrapper />
           {children}
           <Footer />

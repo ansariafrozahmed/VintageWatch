@@ -10,6 +10,24 @@ const Header = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [toggleNav, setToggleNav] = useState(true);
+  const [show, setShow] = useState("translate-y-0");
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const controlNavBar = () => {
+    window.scrollY > 200
+      ? window.scrollY > lastScrollY
+        ? setShow("-translate-y-[80px]")
+        : setShow("shadow-sm")
+      : setShow("translate-y-0");
+    setLastScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavBar);
+    return () => {
+      window.removeEventListener("scroll", controlNavBar);
+    };
+  }, [lastScrollY]);
 
   // console.log("HEADER");
   useEffect(() => {
@@ -62,11 +80,13 @@ const Header = () => {
   );
 
   return (
-    <div className="h-[11svh] shadow px-5 xl:px-20 flex items-center w-full">
+    <div
+      className={`px-5 lg:px-20 h-[12svh] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform duration-300 ${show}`}
+    >
       <div className="w-full flex items-center justify-between">
         <div>
           <Link href={"/"}>
-            <h1 className="font-logoFont text-[2rem] lg:text-[2.2rem]">
+            <h1 className="font-logoFont select-none text-[2rem] lg:text-[2.2rem]">
               VintageWatch
             </h1>
           </Link>

@@ -17,7 +17,7 @@ const NewArrivals = () => {
       <div className="flex items-center justify-between mx-5 lg:mx-20 leading-none font-SecondaryFont">
         <div>
           <h3 className="md:text-xl">Check out !</h3>
-          <h2 className="text-3xl md:text-5xl">New Arrivals</h2>
+          <h2 className="text-3xl md:text-5xl">NewArrivals</h2>
         </div>
         <div className="group">
           <Link className="flex items-center gap-1" href={"collections"}>
