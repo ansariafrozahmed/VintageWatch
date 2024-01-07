@@ -13,7 +13,7 @@ const BecomeSeller = () => {
       description: "Admin will review you details and approved your account",
     },
     {
-      heading: "listing your products",
+      heading: "List your products",
       description: "After getting approval you can start listing the products",
     },
   ];

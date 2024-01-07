@@ -7,7 +7,11 @@ const HeaderWrapper = () => {
   const path = usePathname();
   //   console.log(path, "WRAPPER");
   return (
-    <>{path !== "/auth/signin" && path !== "/auth/signup" && <Header />}</>
+    <>
+      {path !== "/auth/signin" &&
+        path !== "/auth/signup" &&
+        path !== "/seller-registration" && <Header />}
+    </>
   );
 };
 

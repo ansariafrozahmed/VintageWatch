@@ -16,7 +16,7 @@ const SignInComp = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  console.log("SignIn Page");
+  // console.log("SignIn Page");
   useEffect(() => {
     // Check if window is defined (i.e., if the code is running on the client side)
     if (typeof window !== "undefined") {

@@ -20,7 +20,7 @@ const Seller = () => {
           }}
         ></div>
 
-        <div className="lg:w-1/2 space-y-3 md:space-y-5 my-auto text-center lg:text-left z-10">
+        <div className="lg:w-1/2 my-auto space-y-3 md:space-y-5 text-center lg:text-left z-10">
           <h2 className="text-[2.5rem] md:text-6xl font-SecondaryFont">
             Become A Seller
           </h2>
@@ -28,9 +28,13 @@ const Seller = () => {
             Sell on vintagewatch.in, India's most visited vintage watch
             destination
           </p>
-          <button className="bg-[#077E7D] shadow-xl hover:scale-105 active:scale-95 transition-all ease-in-out text-white text-lg py-3 px-8 rounded-full">
-            <Link href={"/seller-registration"}>Start Selling</Link>
-          </button>
+          <div>
+            <Link href={"/seller-registration"}>
+              <p className="bg-[#077E7D] inline-block shadow-xl hover:scale-105 active:scale-95 transition-all ease-in-out text-white text-lg py-3 px-8 rounded-full">
+                Start Selling
+              </p>
+            </Link>
+          </div>
         </div>
 
         <div className="lg:w-1/2 grid place-content-center">
