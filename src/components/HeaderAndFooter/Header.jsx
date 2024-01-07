@@ -13,6 +13,34 @@ const Header = () => {
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  const menuData = [
+    {
+      id: 1,
+      label: "Buy A Watch",
+      link: "/collections",
+    },
+    {
+      id: 1,
+      label: "Sell A Watch",
+      link: "/become-a-seller",
+    },
+    {
+      id: 1,
+      label: "About Us",
+      link: "/about-us",
+    },
+    {
+      id: 1,
+      label: "Contact Us",
+      link: "/contact-us",
+    },
+    {
+      id: 1,
+      label: "FAQs",
+      link: "/faqs",
+    },
+  ];
+
   const controlNavBar = () => {
     window.scrollY > 200
       ? window.scrollY > lastScrollY
@@ -92,22 +120,14 @@ const Header = () => {
           </Link>
         </div>
         <div className="hidden lg:block">
-          <ul className="flex gap-5 xl:gap-10 items-center justify-center">
-            <Link href={"/collections"}>
-              <li>Buy a watch</li>
-            </Link>
-            <Link href={"/become-a-seller"}>
-              <li>Sell a watch</li>
-            </Link>
-            <Link href={"/about-us"}>
-              <li>About us</li>
-            </Link>
-            <Link href={"/contact-us"}>
-              <li>Contact us</li>
-            </Link>
-            <Link href={"/faqs"}>
-              <li>FAQs</li>
-            </Link>
+          <ul className="flex gap-3 items-center justify-center">
+            {menuData?.map((item) => (
+              <Link key={item.id} href={item.link}>
+                <li className="transition-all ease-in-out hover:bg-gray-100 text-[0.95rem] py-2 rounded-full px-4">
+                  {item.label}
+                </li>
+              </Link>
+            ))}
           </ul>
         </div>
         <div className="flex items-center justify-center gap-2">
@@ -134,13 +154,18 @@ const Header = () => {
               <X size={30} onClick={handleMenu} className="cursor-pointer" />
             )}
             <div
-              className={`absolute top-[15vh] left-0 w-full p-3 bg-white z-50 transition-all ease-in-out ${
+              className={`absolute top-[12svh] left-0 w-full p-3 bg-white z-50 transition-all ease-in-out ${
                 toggleNav ? "scale-0" : "scale-100"
               }`}
             >
-              <ul className="text-center">
-                <li>Buy a watch</li>
-                <li>Sell a watch</li>
+              <ul className="text-left font-SecondaryFont text-lg space-y-3 tracking-wide px-1 pb-5">
+                {menuData?.map((item) => (
+                  <li>
+                    <Link key={item.id} href={item.link} onClick={handleMenu}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

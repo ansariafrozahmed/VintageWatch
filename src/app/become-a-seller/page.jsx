@@ -1,4 +1,6 @@
+import { BecomeSellerAccordion } from "@/components/BecomeSeller/Accordion";
 import BecomeSeller from "@/components/BecomeSeller/BecomeSeller";
+import Link from "next/link";
 import React from "react";
 
 const Seller = () => {
@@ -26,8 +28,8 @@ const Seller = () => {
             Sell on vintagewatch.in, India's most visited vintage watch
             destination
           </p>
-          <button className="bg-[#077E7D] shadow-xl hover:scale-105 active:scale-90 transition-all ease-in-out text-white text-lg py-3 px-8 rounded-full">
-            Start Selling
+          <button className="bg-[#077E7D] shadow-xl hover:scale-105 active:scale-95 transition-all ease-in-out text-white text-lg py-3 px-8 rounded-full">
+            <Link href={"/seller-registration"}>Start Selling</Link>
           </button>
         </div>
 
@@ -41,6 +43,7 @@ const Seller = () => {
       </div>
 
       <BecomeSeller />
+      <BecomeSellerAccordion />
     </div>
   );
 };
