@@ -81,8 +81,8 @@ const Header = () => {
     // Clear authentication data from localStorage
     if (typeof window !== "undefined") {
       localStorage.removeItem("vwuser");
+      toast.success("Sign Out Successfully");
     }
-    toast.success("Sign Out Successfully");
     // Redirect to the home page or any other desired page after sign-out
     setTimeout(() => {
       router.push("/auth/signin");
@@ -92,7 +92,7 @@ const Header = () => {
   const content = (
     <div>
       <Link href={"/profile"}>
-        <p className="flex items-center gap-2 transition-all ease-in-out px-5 p-2 hover:bg-gray-100">
+        <p className="flex items-center gap-2 transition-all bg-white ease-in-out px-5 p-2 hover:bg-gray-100">
           <User size={17} className="mt-0.50" />
           My Account
         </p>

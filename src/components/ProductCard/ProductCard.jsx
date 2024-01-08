@@ -12,7 +12,7 @@ const ProductCard = () => {
             alt=""
           />
         </div>
-        <div className="px-5 py-3 space-y-1 text-center">
+        <div className="px-5 py-2 space-y-1 text-center">
           <h2 className="text-gray-700 text-sm">Rolex</h2>
           <h3 className="line-clamp-1">Vintage watch and many more watches</h3>
         </div>

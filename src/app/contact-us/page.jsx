@@ -3,7 +3,7 @@ import React from "react";
 const ContactUs = () => {
   return (
     <div>
-      <section class="relative z-10 overflow-hidden  bg-white dark:bg-dark px-5 py-10 lg:p-20">
+      <section class="relative z-10 overflow-hidden bg-white dark:bg-dark px-5 py-10 lg:p-20">
         <div class="container mx-auto">
           <div class="flex flex-wrap -mx-4 lg:justify-between">
             <div class="w-full px-4 lg:w-1/2 xl:w-6/12">
@@ -82,7 +82,7 @@ const ContactUs = () => {
               </div>
             </div>
             <div class="w-full px-4 lg:w-1/2 xl:w-5/12">
-              <div class="relative p-8 bg-white rounded-lg shadow-lg dark:bg-dark-2 sm:p-12">
+              <div class="relative p-8 bg-white border border-black rounded-lg shadow-lg dark:bg-dark-2 sm:p-12">
                 <form
                 //  onSubmit={handleContactSubmit}
                 >
@@ -94,7 +94,7 @@ const ContactUs = () => {
                       // value={name}
                       // onChange={(e) => setName(e.target.value)}
                       placeholder="Your Name"
-                      class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
+                      class="border-black text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
                     />
                   </div>
                   <div class="mb-6">
@@ -105,7 +105,7 @@ const ContactUs = () => {
                       // value={email}
                       // onChange={(e) => setEmail(e.target.value)}
                       placeholder="Your Email"
-                      class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
+                      class="border-black text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
                     />
                   </div>
                   <div class="mb-6">
@@ -116,7 +116,7 @@ const ContactUs = () => {
                       // value={phone}
                       placeholder="Your Contact Number"
                       // onChange={(e) => setPhone(e.target.value)}
-                      class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
+                      class="border-black text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
                     />
                   </div>
                   <div class="mb-6">
@@ -127,13 +127,13 @@ const ContactUs = () => {
                       // value={message}
                       // onChange={(e) => setMessage(e.target.value)}
                       placeholder="Your Message"
-                      class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none"
+                      class="border-black text-body-color focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none"
                     ></textarea>
                   </div>
                   <div>
                     <button
                       type="submit"
-                      class="w-full p-3 transition border shadow-lg rounded border-primary bg-primary hover:bg-opacity-90"
+                      class="w-full p-3 transition shadow-lg rounded bg-green-600 text-white hover:bg-opacity-90"
                     >
                       Send Message
                     </button>
