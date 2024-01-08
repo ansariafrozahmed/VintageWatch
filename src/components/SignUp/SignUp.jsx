@@ -1,4 +1,5 @@
 "use client";
+import { BACKENDURL } from "@/app/page";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -43,7 +44,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:4000/api/signup", {
+      const response = await fetch(`${BACKENDURL}api/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

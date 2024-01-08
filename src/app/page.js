@@ -4,12 +4,8 @@ import NewArrivals from "@/components/NewArrivals/NewArrivals";
 import HomeProductSection from "@/components/ProductCard/HomeProductSection";
 import Summary from "@/components/Summary";
 import React from "react";
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "./api/auth/[...nextauth]/route";
 
-const page = async () => {
-  // const data = await getServerSession(authOptions);
-
+const Home = async () => {
   return (
     <div>
       {/* {JSON.stringify(data)} */}
@@ -22,4 +18,6 @@ const page = async () => {
   );
 };
 
-export default page;
+// export const BACKENDURL = "http://localhost:4000/";
+export const BACKENDURL = "https://vw-backend.onrender.com/";
+export default Home;

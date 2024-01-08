@@ -4,6 +4,7 @@ import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { BACKENDURL } from "@/app/page";
 
 const SignInComp = () => {
   const router = useRouter();
@@ -38,10 +39,11 @@ const SignInComp = () => {
     }
   }, [user]);
 
+  // console.log(BACKENDURL);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:4000/api/signin", {
+      const response = await fetch(`${BACKENDURL}api/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +60,7 @@ const SignInComp = () => {
           setEmail("");
           setPassword("");
           toast.success("Successfully Logged In");
-          console.log("User:", userData);
+          // console.log("User:", userData);
           setTimeout(() => {
             router.push("/");
           }, 1000);

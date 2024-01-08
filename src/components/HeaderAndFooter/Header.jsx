@@ -20,22 +20,22 @@ const Header = () => {
       link: "/collections",
     },
     {
-      id: 1,
+      id: 2,
       label: "Sell A Watch",
       link: "/become-a-seller",
     },
     {
-      id: 1,
+      id: 3,
       label: "About Us",
       link: "/about-us",
     },
     {
-      id: 1,
+      id: 4,
       label: "Contact Us",
       link: "/contact-us",
     },
     {
-      id: 1,
+      id: 5,
       label: "FAQs",
       link: "/faqs",
     },
@@ -159,8 +159,8 @@ const Header = () => {
               }`}
             >
               <ul className="text-left font-SecondaryFont text-lg space-y-3 tracking-wide px-1 pb-5">
-                {menuData?.map((item) => (
-                  <li>
+                {menuData?.map((item, index) => (
+                  <li key={index}>
                     <Link key={item.id} href={item.link} onClick={handleMenu}>
                       {item.label}
                     </Link>
